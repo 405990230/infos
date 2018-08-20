@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property resource="application.properties" />
+    <property scope="context" name="LOCAL_LOG_FOLDER" value="/Users/qxr4383/Documents/software/apache-tomcat-7.0.77/logs/browserApp/information" />
+    <property scope="context" name="SUB_SYSTEM" value="information" />
+    <if condition='isDefined("catalina.base")'>
+        <then>
+            <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${LOCAL_LOG_FOLDER}/${SUB_SYSTEM}</file>
+                <append>true</append>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <FileNamePattern>${catalina.base}/logs/information/information.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+                    <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                        <maxFileSize>500MB</maxFileSize>
+                    </timeBasedFileNamingAndTriggeringPolicy>
+                    <!--<maxHistory>7</maxHistory>-->
+                </rollingPolicy>
+                <encoder>
+                    <!--<pattern>%d{HH:mm:ss} {%t} %-5level [information] %logger - %msg%n</pattern>-->
+                    <pattern>%d{yyyy-MM-dd HH:mm:ss} {%t} %highlight(%-5level) [%X{vin}]  %logger{0}.%method:%L : %msg%n</pattern>
+                    <charset>UTF-8</charset>
+                </encoder>
+            </appender>
+        </then>
+    </if>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} {%t} %highlight(%-5level) [%X{vin}]  %logger{0}.%method:%L :  %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="MONITORLOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<file>${catalina.base}/logs/browserApp/information/information-statistic.csv</file>-->
+        <file>${LOCAL_LOG_FOLDER}/information-statistic.csv</file>
+        <append>true</append>
+        <rollingPolicy name="file" class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${catalina.base}/logs/information/information-statistic.%d{yyyy-MM}-%i.csv</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>4000MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!--<maxHistory>7</maxHistory>-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd|HH:mm:ss}|%m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <logger name="MONITORLOGTOCSV" additivity="false" level="INFO">
+        <appender-ref ref="MONITORLOGFILE" />
+    </logger>
+
+    <root level="${logback.log.level}">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>

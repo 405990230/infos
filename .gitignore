@@ -1,0 +1,23 @@
+#JAVA
+*.class
+*.war
+*.ear
+
+# ignore eclipse project files
+.classpath
+.project
+.settings/
+
+# ignore intellij files
+.idea/
+*.iml
+
+target/
+catalina.base_IS_UNDEFINED/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+.metadata
+.DS_Store

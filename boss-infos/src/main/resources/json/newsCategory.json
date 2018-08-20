@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "datatype": "text",
+    "status": "ok",
+    "provider": "AFP",
+    "request": "https://int-b2v.bmwgroup.de/com/cdpid5tst/vehicle/id7/rest/news/categories/v1",
+    "market": "de",
+    "language": "de",
+    "supportedLanguages": []
+  },
+  "data": [
+    {
+      "oid": "de",
+      "categories": [
+        "xxxxxxxx",
+        {
+          "oid": "BMWNewsOverview",
+          "categories": [
+            "BMWNewsOverview"
+          ]
+        },
+        {
+          "oid": "topNewsOverview",
+          "categories": [
+            "topNewsOverview"
+          ]
+        },
+        {
+          "oid": "worldNewsOverview",
+          "categories": [
+            "worldNewsOverview"
+          ]
+        },
+        {
+          "oid": "economyNewsOverview",
+          "categories": [
+            "economyNewsOverview"
+          ]
+        },
+        "xxxxxx",
+        {
+          "oid": "technologyNewsOverview",
+          "categories": [
+            "technologyNewsOverview"
+          ]
+        },
+        {
+          "oid": "sportNewsOverview",
+          "categories": [
+            "sportNewsOverview"
+          ]
+        },
+        {
+          "oid": "entertainmentNewsOverview",
+          "categories": [
+            "entertainmentNewsOverview"
+          ]
+        }
+      ]
+    }
+  ]
+}

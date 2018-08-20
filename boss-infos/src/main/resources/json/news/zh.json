@@ -1,0 +1,39 @@
+{
+	"items" : [
+		{
+			"channel":"BMWNewsOverview",
+			"oid":"998",
+			"name":"BMW"
+		},
+		{
+			"channel":"topNewsOverview",
+			"oid":"307",
+			"name":"要问"
+		},
+		{
+			"channel":"worldNewsOverview",
+			"oid":"308",
+			"name":"世界"
+		},
+		{
+			"channel":"economyNewsOverview",
+			"oid":"301",
+			"name":"经济"
+		},
+		{
+			"channel":"technologyNewsOverview",
+			"oid":"305",
+			"name":"科技"
+		},
+		{
+			"channel":"sportNewsOverview",
+			"oid":"306",
+			"name":"运动"
+		},
+		{
+			"channel":"entertainmentNewsOverview",
+			"oid":"303",
+			"name":"娱乐"
+		}
+	]
+}

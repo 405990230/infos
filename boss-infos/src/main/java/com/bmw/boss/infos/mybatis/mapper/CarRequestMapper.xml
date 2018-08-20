@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bmw.boss.infos.mybatis.dao.CarRequestMapper" >
+  <resultMap id="BaseResultMap" type="com.bmw.boss.infos.entity.CarRequest" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="vin" property="vin" jdbcType="VARCHAR" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="pu" property="pu" jdbcType="VARCHAR" />
+    <result column="system" property="system" jdbcType="VARCHAR" />
+    <result column="page" property="page" jdbcType="VARCHAR" />
+    <result column="request_date" property="requestDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="creat_date" property="creatDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vin, app_name, pu, system, page, request_date, update_date, creat_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from car_request
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from car_request
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteAll" >
+    delete from car_request
+  </delete>
+  <insert id="insert" parameterType="com.bmw.boss.infos.entity.CarRequest" >
+    insert into car_request (id, vin, app_name, 
+      pu, system, page, request_date, 
+      update_date, creat_date)
+    values (#{id,jdbcType=BIGINT}, #{vin,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
+      #{pu,jdbcType=VARCHAR}, #{system,jdbcType=VARCHAR}, #{page,jdbcType=VARCHAR}, #{requestDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{creatDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bmw.boss.infos.entity.CarRequest" >
+    insert into car_request
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vin != null" >
+        vin,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="pu != null" >
+        pu,
+      </if>
+      <if test="system != null" >
+        system,
+      </if>
+      <if test="page != null" >
+        page,
+      </if>
+      <if test="requestDate != null" >
+        request_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="creatDate != null" >
+        creat_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="vin != null" >
+        #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="pu != null" >
+        #{pu,jdbcType=VARCHAR},
+      </if>
+      <if test="system != null" >
+        #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="requestDate != null" >
+        #{requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatDate != null" >
+        #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bmw.boss.infos.entity.CarRequest" >
+    update car_request
+    <set >
+      <if test="vin != null" >
+        vin = #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="pu != null" >
+        pu = #{pu,jdbcType=VARCHAR},
+      </if>
+      <if test="system != null" >
+        system = #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        page = #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="requestDate != null" >
+        request_date = #{requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatDate != null" >
+        creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bmw.boss.infos.entity.CarRequest" >
+    update car_request
+    set vin = #{vin,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      pu = #{pu,jdbcType=VARCHAR},
+      system = #{system,jdbcType=VARCHAR},
+      page = #{page,jdbcType=VARCHAR},
+      request_date = #{requestDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      creat_date = #{creatDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- 批量插入，传入表名和需要插入的数据的集合 -->
+  <insert id="batchInsertCarRequestList" parameterType="java.util.List">
+    insert into car_request
+    (vin, app_name,
+        pu, system, page, request_date,
+        update_date, creat_date)
+    values
+    <foreach collection="list" item="record" index="index" separator=",">
+      (#{record.vin,jdbcType=VARCHAR}, #{record.appName,jdbcType=VARCHAR},
+      #{record.pu,jdbcType=VARCHAR}, #{record.system,jdbcType=VARCHAR}, #{record.page,jdbcType=VARCHAR},
+      #{record.requestDate,jdbcType=TIMESTAMP},
+      #{record.updateDate,jdbcType=TIMESTAMP}, #{record.creatDate,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+</mapper>

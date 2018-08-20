@@ -1,0 +1,34 @@
+{
+	"items" : [
+		{
+			"channel":"topNewsOverview",
+			"oid":"309",
+			"name":"top"
+		},
+		{
+			"channel":"worldNewsOverview",
+			"oid":"310",
+			"name":"world"
+		},
+		{
+			"channel":"economyNewsOverview",
+			"oid":"311",
+			"name":"economy"
+		},
+		{
+			"channel":"technologyNewsOverview",
+			"oid":"313",
+			"name":"technology"
+		},
+		{
+			"channel":"sportNewsOverview",
+			"oid":"312",
+			"name":"sport"
+		},
+		{
+			"channel":"entertainmentNewsOverview",
+			"oid":"314",
+			"name":"entertainment"
+		}
+	]
+}
