@@ -1,5 +1,7 @@
 package com.bmw.boss.common.model;
 
+import lombok.Data;
+
 /**
  * Description: 所有第三方接口返回的实体类
  * Copyright: Copyright (c) 2017
@@ -8,24 +10,10 @@ package com.bmw.boss.common.model;
  * @author: wuw
  * @created: 2017/1/4
  */
+@Data
 public class HttpClentResponseModel {
 
     private int statusCode;
     private String content;
 
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }

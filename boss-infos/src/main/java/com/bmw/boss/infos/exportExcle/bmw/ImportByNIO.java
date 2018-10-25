@@ -47,7 +47,7 @@ public class ImportByNIO {
                     line = new String(strBuf.toString() + line);
 
                     //System.out.println(line);
-                    if(line.contains("/id5-weather")){//id5天气
+                    if(line.contains("/id5-weather/v1")){//id5天气
                         appsNum[0]++;
                     }else if(line.contains("/id5-news/categories")){//id5新闻
                         appsNum[1]++;

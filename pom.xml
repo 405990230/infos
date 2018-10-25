@@ -52,6 +52,7 @@
         <spring-data-mongodb.version>1.7.2.RELEASE</spring-data-mongodb.version>
         <mongo-java-driver.version>3.5.0</mongo-java-driver.version>
         <httpclient.version>4.5.6</httpclient.version>
+        <lombok.version>1.16.18</lombok.version>
     </properties>
 
     <dependencies>
@@ -295,6 +296,15 @@
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
     </dependencies>
 
     <build>
