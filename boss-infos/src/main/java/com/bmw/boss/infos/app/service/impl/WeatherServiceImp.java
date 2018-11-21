@@ -3,7 +3,7 @@ package com.bmw.boss.infos.app.service.impl;
 import com.bmw.boss.infos.app.exception.BusinessException;
 import com.bmw.boss.infos.app.pojo.api.*;
 import com.bmw.boss.infos.app.pojo.json.*;
-import com.bmw.boss.infos.app.service.IWeatherPathHandlerService;
+import com.bmw.boss.infos.app.service.LinxService;
 import com.bmw.boss.infos.app.service.IWeatherService;
 import com.bmw.boss.infos.app.util.WeatherServerEnvironment;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class WeatherServiceImp implements IWeatherService {
 
 	private static Logger logger = LoggerFactory.getLogger(WeatherServiceImp.class);
 	@Autowired
-	private IWeatherPathHandlerService weatherPathHandlerService;
+	private LinxService linxService;
 
 	/**
 	 * value：缓存位置名称，不能为空，如果使用EHCache，就是ehcache.xml中声明的cache的name
@@ -40,7 +40,7 @@ public class WeatherServiceImp implements IWeatherService {
 			i18n = "en_US";
 		}
 		language = i18n;
-		WeatherApiPojo apiPojo = weatherPathHandlerService.getWeather(lat, lon, i18n);
+		WeatherApiPojo apiPojo = linxService.getWeather(lat, lon, i18n);
 		if ("0".equals(apiPojo.getCode())) {
 			rtnList = parseWeatherApiPojo(apiPojo);
 			String indexDescriptionString = generateDescription(apiPojo.getData()

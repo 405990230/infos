@@ -2,32 +2,32 @@
 	"items" : [
 		{
 			"channel":"topNewsOverview",
-			"oid":"309",
+			"oid":"news",
 			"name":"top"
 		},
 		{
 			"channel":"worldNewsOverview",
-			"oid":"310",
+			"oid":"world",
 			"name":"world"
 		},
 		{
 			"channel":"economyNewsOverview",
-			"oid":"311",
+			"oid":"finance",
 			"name":"economy"
 		},
 		{
 			"channel":"technologyNewsOverview",
-			"oid":"313",
+			"oid":"tech",
 			"name":"technology"
 		},
 		{
 			"channel":"sportNewsOverview",
-			"oid":"312",
+			"oid":"sports",
 			"name":"sport"
 		},
 		{
 			"channel":"entertainmentNewsOverview",
-			"oid":"314",
+			"oid":"ent",
 			"name":"entertainment"
 		}
 	]

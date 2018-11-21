@@ -3,14 +3,15 @@ package com.bmw.boss.infos.app.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.bmw.boss.common.id.SnowflakeIdWorker;
 import com.bmw.boss.infos.app.enums.NewsImageSizeEnum;
 import com.bmw.boss.infos.app.exception.BusinessException;
 import com.bmw.boss.infos.app.pojo.api.NewsItemPojo;
 import com.bmw.boss.infos.app.pojo.api.NewsListAPIPojo;
 import com.bmw.boss.infos.app.pojo.api.PictureItemPojo;
 import com.bmw.boss.infos.app.pojo.json.*;
-import com.bmw.boss.infos.app.service.INewsPathHandlerService;
 import com.bmw.boss.infos.app.service.INewsService;
+import com.bmw.boss.infos.app.service.LinxService;
 import com.bmw.boss.infos.app.util.I18nCategoriesForNews;
 import com.bmw.boss.common.service.jedis.RedisClientTemplate;
 import com.bmw.boss.common.util.jedis.RedisUtilByCode;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class NewsServiceImp implements INewsService {
 
 
 	@Autowired
-	private INewsPathHandlerService newsPathHandlerService;
+	private LinxService linxService;
 
 	@Autowired
 	private I18nCategoriesForNews i18nCategoriesForNews;
@@ -99,7 +101,7 @@ public class NewsServiceImp implements INewsService {
 			IOException e = new IOException("bmw Cannot match categories [" + channelId + "]");
 			throw e;
 		}
-		NewsListAPIPojo apiPojo = newsPathHandlerService.getNewsList(categoryOid);
+		NewsListAPIPojo apiPojo = linxService.getNewsList(categoryOid);
 		List<ResponseNewsListDataPojo> rtnList = new ArrayList<>();
 		if ("0".equals(apiPojo.getStatus())) {
 			ResponseNewsListDataPojo dataPojo = parseNewsListResponse(apiPojo);
@@ -122,11 +124,12 @@ public class NewsServiceImp implements INewsService {
 	public ResponseNewsListDataPojo parseNewsListResponse(NewsListAPIPojo apiPojo) throws UnsupportedEncodingException {
 		ResponseNewsListDataPojo dataPojo = new ResponseNewsListDataPojo();
 		List<ResponseNewsItemPojo> itemsPojo  = new ArrayList<>();
+		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(2, 2);
 		for (NewsItemPojo apiItemPojo : apiPojo.getItem()) {
 			ResponseNewsItemPojo itemPojo = new ResponseNewsItemPojo();
 			itemPojo.setTitle(apiItemPojo.getTitle());
 			List<String> paragrah = new ArrayList<>();
-			paragrah.add(apiItemPojo.getContent() + "\n");
+			paragrah.add(apiItemPojo.getContent() + "--腾讯新闻\n");
 			itemPojo.setParagraphs(paragrah);
 
 			SimpleDateFormat srcDateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -137,46 +140,41 @@ public class NewsServiceImp implements INewsService {
 			try {
 				Date date = srcDateFormatter.parse(srcDateStr);
 				tarDateStr = tarDateFormatter.format(date) + "T" + tarTimeFormatter.format(date) + "+0800";
+				itemPojo.setTimestamp(tarDateStr);
+
+				PictureItemPojo pictureItemPojo = apiItemPojo.getPictures().get(0);
+				List<ResponseImagesListPojo> imageListPojo = new ArrayList<>();
+				String thumbImageUrlParam = URLEncoder.encode(pictureItemPojo.getUrl()+"/"+idWorker.nextId(),"UTF-8")+".jpg";
+				String fullImageUrlParam = URLEncoder.encode(pictureItemPojo.getUrl()+"/"+idWorker.nextId(),"UTF-8")+".jpg";
+				boolean isThumbEmpty = thumbImageUrlParam == null || thumbImageUrlParam.length() < 5;
+				boolean isFullEmpty = fullImageUrlParam == null || fullImageUrlParam.length() < 5;
+				if (isThumbEmpty && isFullEmpty) {
+					itemPojo.setImages(null);
+				} else {
+					if (isThumbEmpty) {
+						thumbImageUrlParam = fullImageUrlParam;
+					} else if (isFullEmpty) {
+						fullImageUrlParam = thumbImageUrlParam;
+					}
+					ResponseImagesItemPojo thumbImageItem = new ResponseImagesItemPojo();
+					ResponseImagesItemPojo fullImageItem = new ResponseImagesItemPojo();
+					thumbImageItem.setLink(thumbImageUrlParam);
+					thumbImageItem.setX(NewsImageSizeEnum.THUMB_IMAGE_X.getNewsImageSizeEnum());
+					thumbImageItem.setY(NewsImageSizeEnum.THUMB_IMAGE_Y.getNewsImageSizeEnum());
+					fullImageItem.setLink(fullImageUrlParam);
+					fullImageItem.setX(NewsImageSizeEnum.FULL_IMAGE_X.getNewsImageSizeEnum());
+					fullImageItem.setY(NewsImageSizeEnum.FULL_IMAGE_Y.getNewsImageSizeEnum());
+					ResponseImagesListPojo imagesList = new ResponseImagesListPojo();
+					imagesList.setFull(fullImageItem);
+					imagesList.setThumb(thumbImageItem);
+					imageListPojo.add(imagesList);
+
+					itemPojo.setImages(imageListPojo);
+				}
 			} catch (ParseException e) {
 				logger.warn("bmw Parse date: " + srcDateStr + "error", e);
-			}
-
-			itemPojo.setTimestamp(tarDateStr);
-
-			PictureItemPojo pictureItemPojo = apiItemPojo.getPictures().get(0);
-			List<ResponseImagesListPojo> imageListPojo = new ArrayList<>();
-
-			//String thumbImageUrlParam = URLEncoder.encode(apiItemPojo.getSmallpicurl(),"UTF-8");
-			//String fullImageUrlParam = URLEncoder.encode(pictureItemPojo.getUrl(),"UTF-8");
-
-			String thumbImageUrlParam = apiItemPojo.getSmallpicurl();
-			String fullImageUrlParam = pictureItemPojo.getUrl();
-			boolean isThumbEmpty = thumbImageUrlParam == null || thumbImageUrlParam.length() < 5;
-			boolean isFullEmpty = fullImageUrlParam == null || fullImageUrlParam.length() < 5;
-			if (isThumbEmpty && isFullEmpty) {
-				itemPojo.setImages(null);
-			} else {
-				if (isThumbEmpty) {
-					thumbImageUrlParam = fullImageUrlParam;
-				} else if (isFullEmpty) {
-					fullImageUrlParam = thumbImageUrlParam;
-				}
-				ResponseImagesItemPojo thumbImageItem = new ResponseImagesItemPojo();
-				ResponseImagesItemPojo fullImageItem = new ResponseImagesItemPojo();
-				//thumbImageItem.setLink(ServerEnvironment.getImageServelt() + "?maxHeight=135&maxWidth=135&url=" + thumbImageUrlParam);
-				thumbImageItem.setLink(thumbImageUrlParam);
-				thumbImageItem.setX(NewsImageSizeEnum.THUMB_IMAGE_X.getNewsImageSizeEnum());
-				thumbImageItem.setY(NewsImageSizeEnum.THUMB_IMAGE_Y.getNewsImageSizeEnum());
-				//fullImageItem.setLink(ServerEnvironment.getImageServelt() + "?maxHeight=225&maxWidth=324&url=" + fullImageUrlParam);
-				fullImageItem.setLink(fullImageUrlParam);
-				fullImageItem.setX(NewsImageSizeEnum.FULL_IMAGE_X.getNewsImageSizeEnum());
-				fullImageItem.setY(NewsImageSizeEnum.FULL_IMAGE_Y.getNewsImageSizeEnum());
-				ResponseImagesListPojo imagesList = new ResponseImagesListPojo();
-				imagesList.setFull(fullImageItem);
-				imagesList.setThumb(thumbImageItem);
-				imageListPojo.add(imagesList);
-
-				itemPojo.setImages(imageListPojo);
+			} catch ( Exception e) {
+				logger.error("parse picture exception :" + e);
 			}
 
 			itemsPojo.add(itemPojo);
@@ -184,4 +182,5 @@ public class NewsServiceImp implements INewsService {
 		dataPojo.setItems(itemsPojo);
 		return dataPojo;
 	}
+
 }

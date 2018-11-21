@@ -4,17 +4,14 @@ import base.BaseTest;
 import com.alibaba.fastjson.JSON;
 import com.bmw.boss.infos.app.ehcache.EhCacheManager;
 import com.bmw.boss.infos.app.pojo.json.ResponseDataItemPojo;
-import com.bmw.boss.infos.app.service.IWeatherPathHandlerService;
+import com.bmw.boss.infos.app.service.LinxService;
 import com.bmw.boss.infos.app.service.IWeatherService;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class latlntTest extends BaseTest{
 	@Autowired
 	IWeatherService weatherService;
 	@Autowired
-	IWeatherPathHandlerService weatherPathHandlerService;
+	LinxService weatherPathHandlerService;
     @SuppressWarnings("deprecation")
 	@Test  
     public void testWeather() {

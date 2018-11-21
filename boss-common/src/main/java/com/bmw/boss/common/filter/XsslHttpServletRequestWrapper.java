@@ -63,7 +63,7 @@ public class XsslHttpServletRequestWrapper extends HttpServletRequestWrapper {
         return value;
     }
     /**
-     * 去除待带script、src的语句，转义替换后的value值
+     * 去除待带script、src、img的语句，转义替换后的value值
      */
     public static String replaceXSS(String value) {
         if (value != null) {
@@ -81,6 +81,9 @@ public class XsslHttpServletRequestWrapper extends HttpServletRequestWrapper {
             Pattern scriptPattern = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
             value = scriptPattern.matcher(value).replaceAll("");
 
+            scriptPattern = Pattern.compile("<img>(.*?)</img>", Pattern.CASE_INSENSITIVE);
+            value = scriptPattern.matcher(value).replaceAll("");
+
             // Avoid anything in a src='...' type of e­xpression
             scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
             value = scriptPattern.matcher(value).replaceAll("");
@@ -92,8 +95,15 @@ public class XsslHttpServletRequestWrapper extends HttpServletRequestWrapper {
             scriptPattern = Pattern.compile("</script>", Pattern.CASE_INSENSITIVE);
             value = scriptPattern.matcher(value).replaceAll("");
 
+            // Remove any lonesome </script> tag
+            scriptPattern = Pattern.compile("</img>", Pattern.CASE_INSENSITIVE);
+            value = scriptPattern.matcher(value).replaceAll("");
+
             // Remove any lonesome <script ...> tag
             scriptPattern = Pattern.compile("<script(.*?)>", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+            value = scriptPattern.matcher(value).replaceAll("");
+
+            scriptPattern = Pattern.compile("<img(.*?)>", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
             value = scriptPattern.matcher(value).replaceAll("");
 
             // Avoid eval(...) e­xpressions
@@ -166,5 +176,4 @@ public class XsslHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
         return result.toString();
     }
-
 }

@@ -75,6 +75,7 @@
 	//get  NewsList
     function getNewsList(category,language){
         //$.post(ctx + "/news/getNewsList",{category:category,language:language},function (data) {
+        $("#NewsDetail").html("");
         $.get(ctx + "/news/getNewsList?category="+category+"&language="+language,function (data) {
             //data = JSON.parse(data);
             console.log("请求新闻");

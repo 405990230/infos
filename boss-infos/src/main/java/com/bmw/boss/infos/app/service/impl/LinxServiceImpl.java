@@ -1,7 +1,9 @@
 package com.bmw.boss.infos.app.service.impl;
 
+import com.bmw.boss.common.service.IRequestHandlerService;
+import com.bmw.boss.infos.app.pojo.api.NewsListAPIPojo;
 import com.bmw.boss.infos.app.pojo.api.WeatherApiPojo;
-import com.bmw.boss.infos.app.service.IWeatherPathHandlerService;
+import com.bmw.boss.infos.app.service.LinxService;
 import com.bmw.boss.infos.app.util.CMSApiHelper;
 import com.bmw.boss.common.model.HttpClentResponseModel;
 import com.bmw.boss.common.service.IHttpClientService;
@@ -13,28 +15,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 
 /**
  * @Auther: hants
  * @Date: 2018-05-10 18:14
  * @Description: 第三方API接口调用服务实现
  */
-@Service("weatherPathHandlerService")
-public class WeatherPathHandlerServiceImpl implements IWeatherPathHandlerService {
+@Service("linxService")
+public class LinxServiceImpl implements LinxService {
 
-    private static final Logger logger = LoggerFactory.getLogger(WeatherPathHandlerServiceImpl.class);
-
-    @Autowired
-    private ObjectMapper objectMapper;
+    private static final Logger logger = LoggerFactory.getLogger(LinxServiceImpl.class);
 
     @Value("#{configProperties['weather.api.gateway']}")
-    private String apiGateway;
+    private String weatherApiGateway;
 
     @Value("#{configProperties['weather.api.user']}")
     private String apiUser;
 
     @Value("#{configProperties['weather.api.key']}")
     private String apiKey;
+
+    @Value("#{configProperties['news.api.gateway']}")
+    private String newsApiGateway;
+
+    @Autowired
+    private IRequestHandlerService requestHandlerService;
+    @Autowired
+    private ObjectMapper objectMapper;
     @Autowired
     private IHttpClientService httpClientService;
 
@@ -45,7 +54,7 @@ public class WeatherPathHandlerServiceImpl implements IWeatherPathHandlerService
         try {
             String queryString = "cata=json&lat=" + lat + "&lng=" + lon + "&language=" + i18n + "&userid=" + apiUser;
             String key = CMSApiHelper.generateHASHKey(queryString, apiKey);
-            String requestUrl = apiGateway + "forecastByLocation?" + queryString + "&key=" + key;
+            String requestUrl = weatherApiGateway + "forecastByLocation?" + queryString + "&key=" + key;
             logger.info("I'm going to send request: " + requestUrl);
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -64,6 +73,21 @@ public class WeatherPathHandlerServiceImpl implements IWeatherPathHandlerService
         return weatherApiPojo;
     }
 
+
+    @Override
+    public NewsListAPIPojo getNewsList(String channelId) throws IOException {
+        NewsListAPIPojo rtnPojo = new NewsListAPIPojo();
+        try {
+            logger.info("I'm going to request Channel [" + channelId + "]");
+            String requestUrl = newsApiGateway+"channelId="+channelId+"&p=1&pageSize=20&refer=100000448";
+            logger.info("I'm going to send request: " + requestUrl);
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            rtnPojo = objectMapper.readValue(requestHandlerService.openRequest(requestUrl,5000), NewsListAPIPojo.class);
+        } catch (Exception e) {
+            logger.error("Error in get key", e);
+        }
+        return rtnPojo;
+    }
 
 }
 

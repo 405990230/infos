@@ -36,8 +36,8 @@ public class I18nCategoriesForNews {
     public void initI18n(){
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
 
-        i18nCategoriesMap = new HashMap<String, Map<String, String>>();
-        i18nCategoriesList = new HashMap<String, List<String>>();
+        i18nCategoriesMap = new HashMap<>();
+        i18nCategoriesList = new HashMap<>();
         i18nNameList = new HashMap<>();
         File catDir = new File(I18nCategoriesForNews.class.getClassLoader().getResource("json/news").getPath());
         if (catDir.isDirectory()) {
@@ -59,9 +59,9 @@ public class I18nCategoriesForNews {
                     } catch (IOException e) {
                         LOGGER.error("Read file failed", e);
                     }
-                    Map<String, String> oidMap = new HashMap<String, String>();
-                    List<String> oidList = new ArrayList<String>();
-                    List<String> nameList = new ArrayList<String>();
+                    Map<String, String> oidMap = new HashMap<>();
+                    List<String> oidList = new ArrayList<>();
+                    List<String> nameList = new ArrayList<>();
                     for (I18nCategoriesItemPojo itemPojo : i18nCategoriesPojo.getItems()) {
                         LOGGER.info(fileName + "," + itemPojo.getChannel() + "," + itemPojo.getOid()+","+itemPojo.getName());
                         oidMap.put(itemPojo.getChannel(), itemPojo.getOid());
