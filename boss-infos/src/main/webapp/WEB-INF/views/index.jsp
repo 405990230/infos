@@ -72,6 +72,7 @@
     }
 
     var infoList;
+
 	//get  NewsList
     function getNewsList(category,language){
         //$.post(ctx + "/news/getNewsList",{category:category,language:language},function (data) {
