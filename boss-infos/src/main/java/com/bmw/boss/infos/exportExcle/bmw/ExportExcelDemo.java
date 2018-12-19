@@ -182,8 +182,8 @@ public class ExportExcelDemo {
     public static void main(String[] args) throws IOException{
         //excle 2007
         String importFilePath= "/Users/qxr4383/Documents/work/logger/dataDemo.xlsx";
-        String exportFilePath= "/Users/qxr4383/Documents/work/logger/2018-10.xlsx";
-        String folderPath = "/Users/qxr4383/Documents/work/logger/prod/access/2018/10";
-        readExcel(importFilePath,exportFilePath,"2018/09",folderPath);
+        String exportFilePath= "/Users/qxr4383/Documents/work/logger/2018-12.xlsx";
+        String folderPath = "/Users/qxr4383/Documents/work/logger/prod/access/2018/12";
+        readExcel(importFilePath,exportFilePath,"2018/12",folderPath);
     }
 }
