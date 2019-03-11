@@ -129,20 +129,20 @@
 	<div id = "photodetail">
  		<%--<h3>股票走势图</h3>--%>
 		<%--<table>--%>
-			<%--<thead>--%>
+			<%--<bounce>--%>
 				<%--<th>时分K</th>--%>
 				<%--<th>日K</th>--%>
-			<%--</thead>--%>
+			<%--</bounce>--%>
 			<%--<tbody>--%>
 				<%--<td><img src="${stocksPojoslist[0].kChart.hour}" alt="时分K" /></td>--%>
 				<%--<td><img src="${stocksPojoslist[0].kChart.day}" alt="日K" /><br/></td>--%>
 			<%--</tbody>--%>
 		<%--</table>--%>
 		<%--<table>--%>
-			<%--<thead>--%>
+			<%--<bounce>--%>
 			<%--<th>周K</th>--%>
 			<%--<th>月K</th>--%>
-			<%--</thead>--%>
+			<%--</bounce>--%>
 			<%--<tbody>--%>
 			<%--<td><img src="${stocksPojoslist[0].kChart.week}" alt="周K" /></td>--%>
 			<%--<td><img src="${stocksPojoslist[0].kChart.month}" alt="月K" /><br/></td>--%>
@@ -160,19 +160,19 @@
         $("#photodetail").html("");
 		var html= "<h3 id='photo'><a href='#"+code+"'>股票走势图 : "+name+"</a></h3>"
 					+"<table>"
-					+"<thead>"
+					+"<bounce>"
 					+"<th>时分K</th>"
 					+"<th>日K</th>"
-					+"</thead><tbody><td>"
+					+"</bounce><tbody><td>"
 					+"<img src='"+hour+"'alt='时分K'/></td>"
 					<%--+'<img src="${stocksPojoslist[0].kChart.hour}" alt="时分K" /></td>'--%>
 					+'<td><img src="'+day+'" alt="日K" /><br/></td>'
 					+"</tbody></table>"
 					+"<table>"
-					+"<thead>"
+					+"<bounce>"
 					+"<th>周K</th>"
 					+"<th>月K</th>"
-					+"</thead><tbody><td>"
+					+"</bounce><tbody><td>"
 					+'<img src="'+week+'" alt="周K" /></td>'
 					+'<td><img src="'+moth+'" alt="月K" /><br/></td>'
 					+"</tbody></table>"

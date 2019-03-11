@@ -46,7 +46,7 @@ public class INewsServiceTest extends BaseTest {
     @Test
     public void getNewsListByOid(){
         try {
-            List<ResponseNewsListDataPojo> list = newsService.getNewsListByOid("topNewsOverview","zh");
+            List<ResponseNewsListDataPojo> list = newsService.getNewsListByOid("worldNewsOverview","zh");
             logger.info(objectMapper.writeValueAsString(list));
         }catch ( Exception e){
             logger.info("{}",e);

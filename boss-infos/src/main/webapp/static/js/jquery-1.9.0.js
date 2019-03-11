@@ -6467,7 +6467,7 @@ jQuery.extend({
 						elem = tag === "table" && !rtbody.test( elem ) ?
 							tmp.firstChild :
 
-							// String was a bare <thead> or <tfoot>
+							// String was a bare <bounce> or <tfoot>
 							wrap[1] === "<table>" && !rtbody.test( elem ) ?
 								tmp :
 								0;

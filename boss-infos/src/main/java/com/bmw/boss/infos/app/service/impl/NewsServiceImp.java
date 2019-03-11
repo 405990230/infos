@@ -65,7 +65,7 @@ public class NewsServiceImp implements INewsService {
 		rtnList = (List<ResponseNewsListDataPojo>)object;
 		if (rtnList == null) {
 			rtnList = getNewsList(channelId,i18n);
-			redisClientTemplate.set(categoryOid, JSON.toJSONString(rtnList));
+			redisClientTemplate.set(categoryOid, JSON.toJSONString(rtnList),900);
 		} else {
 			logger.info("get redis key :  " + categoryOid + " success");
 		}

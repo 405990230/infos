@@ -29,7 +29,7 @@ public class RedisClientTemplate {
      * @param value
      * @return
      */
-    public String set(String key, String value) {
+    public String set(String key, String value,int seconds) {
         String result = null;
 
         Jedis jedis = redisDataSource.getRedisClient();
@@ -39,6 +39,7 @@ public class RedisClientTemplate {
         boolean broken = false;
         try {
             result = jedis.set(key, value);
+            jedis.expire(key, seconds);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             broken = true;

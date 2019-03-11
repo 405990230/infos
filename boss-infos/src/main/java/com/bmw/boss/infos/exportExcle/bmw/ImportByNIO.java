@@ -16,7 +16,7 @@ public class ImportByNIO {
         //id5WeatherNum，id5NewsNum，id5DianPingNum，dzhstock，
         // id4WeatherMain，id4WeatherWidget，id4WeatherSplitscreen，id4WeatherTotal
         // id4NewsNum，id4DianPingNum，greatWisdom，id4Aqi，gas（高德加油站），park（高德停车场），flightStatus（航班管家）
-        Integer[] appsNum = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        Integer[] appsNum = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         FileInputStream fis = null;
         FileChannel inChannel = null;
         int bufSize = 1024*10;
@@ -51,33 +51,37 @@ public class ImportByNIO {
                         appsNum[0]++;
                     }else if(line.contains("/id5-news/categories")){//id5新闻
                         appsNum[1]++;
-                    }else if(line.contains("/id5-dianping")){//id5点评
+                    }else if(line.contains("/id5-news/v1")){//id5新闻
                         appsNum[2]++;
-                    }else if(line.contains("/dzhstock/id5/v1/?type=hsidx")){//id5大智慧
+                    }else if(line.contains("/vehicle/id5/image?maxHeight")){//id5大智慧
                         appsNum[3]++;
-                    }else if(line.contains("/weatherInfo")){//ℹ️d4   weather的main主页面
+                    }else if(line.contains("/id5-dianping")){//id5点评
                         appsNum[4]++;
-                    }else if(line.contains("/widget")){//id4  weather的widget页面
+                    }else if(line.contains("/dzhstock/id5/v1/?type=hsidx")){//id5大智慧
                         appsNum[5]++;
-                    }else if(line.contains("/splitscreen")){//id4  weather的splitscreen页面
+                    }else if(line.contains("/weatherInfo")){//ℹ️d4   weather的main主页面
                         appsNum[6]++;
+                    }else if(line.contains("/widget")){//id4  weather的widget页面
+                        appsNum[7]++;
+                    }else if(line.contains("/splitscreen")){//id4  weather的splitscreen页面
+                        appsNum[8]++;
                     }else if(line.contains("/id4-weather/rest/v1")){
                         //因为id4  WeatherTotal为前三个的总和，所以该条件进不来
-                        appsNum[7]++;
-                    }else if(line.contains("/id4-news/rest/v1/categories")){//id4新闻
-                        appsNum[8]++;
-                    }else if(line.contains("/dianping/dianping")){//id4点评
                         appsNum[9]++;
-                    }else if(line.contains("/great-wisdom")){//id4大智慧
+                    }else if(line.contains("/id4-news/rest/v1/categories")){//id4新闻
                         appsNum[10]++;
-                    }else if(line.contains("/aqi/aqi")){//id4  AQI
+                    }else if(line.contains("/dianping/dianping")){//id4点评
                         appsNum[11]++;
-                    }else if(line.contains("flight-status")){//id4  航班管家
+                    }else if(line.contains("/great-wisdom")){//id4大智慧
                         appsNum[12]++;
-                    }else if(line.contains("autonavi-gas")){//id4 高德加油站
+                    }else if(line.contains("/aqi/aqi")){//id4  AQI
                         appsNum[13]++;
-                    }else if(line.contains("autonavi-park")){//id4 高德停车场
+                    }else if(line.contains("flight-status")){//id4  航班管家
                         appsNum[14]++;
+                    }else if(line.contains("autonavi-gas")){//id4 高德加油站
+                        appsNum[15]++;
+                    }else if(line.contains("autonavi-park")){//id4 高德停车场
+                        appsNum[16]++;
                     }
                     strBuf.delete(0, strBuf.length());
 
@@ -94,7 +98,7 @@ public class ImportByNIO {
 
                 }
             }
-            appsNum[7] = appsNum[4]+appsNum[5]+appsNum[6];
+            appsNum[9] = appsNum[6]+appsNum[7]+appsNum[8];
             System.out.println("appsNum = "+ Arrays.toString(appsNum));
         } catch (Exception e) {
             System.out.println("文件读取错误!");

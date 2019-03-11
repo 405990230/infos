@@ -12,7 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import utils.MD5Util;
 
+import java.io.FileInputStream;
+import java.security.MessageDigest;
 import java.util.List;
 
 /**
@@ -65,5 +68,6 @@ public class IWeatherServiceTest extends BaseTest {
         HttpClentResponseModel responseModel = httpClientService.httpGet(requestUrl, 5000);
         System.out.println("=================>"+objectMapper.writeValueAsString(responseModel));
     }
+
 
 }

@@ -8,7 +8,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -136,7 +138,7 @@ public class ExportExcelDemo {
             //XSSFCell在相应的单元格进行赋值
             XSSFCell cell = sheet.getRow(i + 2).getCell(0);//第i+2行 第0列
             cell.setCellValue(time + "/" + i);
-            for (int k = 1; k <= 15; k++) {
+            for (int k = 1; k <= list.get(0).length; k++) {
                 sheet.getRow(i + 2).getCell(k).setCellValue(list.get(i - 1)[k-1]);//第i+2行 第k列
             }
         }
@@ -181,9 +183,12 @@ public class ExportExcelDemo {
 
     public static void main(String[] args) throws IOException{
         //excle 2007
-        String importFilePath= "/Users/qxr4383/Documents/work/logger/dataDemo.xlsx";
-        String exportFilePath= "/Users/qxr4383/Documents/work/logger/2018-12.xlsx";
-        String folderPath = "/Users/qxr4383/Documents/work/logger/prod/access/2018/12";
-        readExcel(importFilePath,exportFilePath,"2018/12",folderPath);
+        String importFilePath= "/Users/qxr4383/Documents/work/logger/dateDemo/dataDemo2.xlsx";
+        String exportFilePath= "/Users/qxr4383/Documents/work/logger/2019-02.xlsx";
+        String folderPath = "/Users/qxr4383/Documents/work/logger/prod/access/2019/02";
+        readExcel(importFilePath,exportFilePath,"2019/01",folderPath);
+        Map map = new HashMap();
+        map.put("a","a");
+        exportFilePath.hashCode();
     }
 }

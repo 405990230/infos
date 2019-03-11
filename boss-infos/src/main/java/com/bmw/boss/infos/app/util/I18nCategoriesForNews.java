@@ -78,7 +78,7 @@ public class I18nCategoriesForNews {
         }
     }
 
-    public List<ResponseCategoriesDataPojo> getChannelList() {
+    public List<ResponseCategoriesDataPojo>getChannelList() {
         List<ResponseCategoriesDataPojo> rtn = new ArrayList<ResponseCategoriesDataPojo>();
         for (String i18n : i18nCategoriesList.keySet()) {
             ResponseCategoriesDataPojo responseCategoriesDataPojo = new ResponseCategoriesDataPojo();
