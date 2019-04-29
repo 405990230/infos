@@ -7,15 +7,7 @@ import java.util.List;
 
 /**
  * 
- * app的请求服务service
- * 
- * @version 
- * <pre>
- * Author	Version		Date		Changes
- * qxr4383    1.0  2018年03月16日 Created
- *
- * </pre>
- * @since 1.
+ * app的请求服务service.
  */
 public interface IWebsitesService {
 

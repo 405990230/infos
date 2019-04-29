@@ -30,8 +30,8 @@ public class IdleConnectionEvictor extends Thread {
                     wait(5000);
                     // 关闭失效的连接
                     PoolStats poolStats = poolingHttpClientConnectionManager.getTotalStats();
-                    log.info("========================poolStats.toString:"+poolStats.toString());
-                    log.info("========================>关闭失效的连接！！！");
+                    //log.info("========================poolStats.toString:"+poolStats.toString());
+                    //log.info("========================>关闭失效的连接！！！");
                     connMgr.closeExpiredConnections();
                     //connMgr.closeIdleConnections(300, TimeUnit.SECONDS);
                 }

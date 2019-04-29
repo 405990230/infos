@@ -183,12 +183,9 @@ public class ExportExcelDemo {
 
     public static void main(String[] args) throws IOException{
         //excle 2007
-        String importFilePath= "/Users/qxr4383/Documents/work/logger/dateDemo/dataDemo2.xlsx";
-        String exportFilePath= "/Users/qxr4383/Documents/work/logger/2019-02.xlsx";
-        String folderPath = "/Users/qxr4383/Documents/work/logger/prod/access/2019/02";
-        readExcel(importFilePath,exportFilePath,"2019/01",folderPath);
-        Map map = new HashMap();
-        map.put("a","a");
-        exportFilePath.hashCode();
+        String importFilePath= "/Users/qxr4383/Documents/work/logger/dataDemo.xlsx";
+        String exportFilePath= "/Users/qxr4383/Documents/work/logger/2019-03.xlsx";
+        String folderPath = "/Users/qxr4383/Documents/work/logger/prod/access/2019/03";
+        readExcel(importFilePath,exportFilePath,"2019/03",folderPath);
     }
 }
