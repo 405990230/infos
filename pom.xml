@@ -45,7 +45,7 @@
         <ehcache.version>2.6.11</ehcache.version>
         <jstl.version>1.2</jstl.version>
         <redis.client.version>2.9.0</redis.client.version>
-        <com.mchange.version>0.9.5.2</com.mchange.version>
+        <com.mchange.version>0.9.5.4</com.mchange.version>
         <mysql-connector-java.version>5.1.30</mysql-connector-java.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <org.apache.poi.version>3.10-FINAL</org.apache.poi.version>
