@@ -16,7 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <spring.version>4.3.16.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <aop.aspectj.version>1.8.7</aop.aspectj.version>
         <mvc.jackson.version>2.9.5</mvc.jackson.version>
         <fastjson.version>1.2.38</fastjson.version>
